@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24h Digital Clock</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        #time {
+            font-size: 6vw;
+            margin: 0;
+        }
+
+        #date {
+            font-size: 4vw;
+            margin: 10px 0;
+        }
+
+        #message {
+            font-size: 3vw;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            #time {
+                font-size: 10vw;
+            }
+
+            #date {
+                font-size: 6vw;
+            }
+
+            #message {
+                font-size: 5vw;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="time">--:--</div>
+    <div id="date">--, --.--.----</div>
+    <div id="message">Loading...</div>
+
+    <script>
+        const messages = [
+            { start: "00:00", end: "05:59", text: "Good night! It's time to rest." },
+            { start: "06:00", end: "11:59", text: "Good morning! Start your day strong." },
+            { start: "12:00", end: "17:59", text: "Good afternoon! Keep up the great work." },
+            { start: "18:00", end: "23:59", text: "Good evening! Relax and unwind." }
+        ];
+
+        const daysOfWeek = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
+
+        function updateClock() {
+            const now = new Date();
+
+            // Update time
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById("time").textContent = `${hours}:${minutes}`;
+
+            // Update date
+            const dayOfWeek = daysOfWeek[now.getDay()];
+            const date = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const year = now.getFullYear();
+            document.getElementById("date").textContent = `${dayOfWeek}, ${date}.${month}.${year}`;
+
+            // Update message
+            const currentTime = `${hours}:${minutes}`;
+            const currentMessage = messages.find(({ start, end }) => currentTime >= start && currentTime <= end)?.text || "Enjoy your day!";
+            document.getElementById("message").textContent = currentMessage;
+        }
+
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
+</body>
+
+</html>
