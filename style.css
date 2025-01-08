@@ -1,0 +1,44 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ffffff, #c6dbff);
+    color: black;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+#time {
+    font-size: 10vw;
+    font-weight: bold;
+    margin: 0;
+}
+
+#date {
+    font-size: 4vw;
+    padding-top: 4vw;
+}
+
+#message {
+    font-size: 6vw;
+    padding-top: 4vw;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    #time {
+        font-size: 20vw;
+    }
+
+    #date {
+        font-size: 6vw;
+    }
+
+    #message {
+        font-size: 10vw;
+    }
+}
