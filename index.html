@@ -87,6 +87,13 @@
 
         const daysOfWeek = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
 
+        let lastMessage = "";
+        const bellSound = new Audio("bellSound.mp3"); // Replace with a proper sound file URL or Base64 encoded audio.
+
+        document.body.appendChild(bellSound);
+        console.log("Playing sound...")
+        bellSound.play();
+
         function updateClock() {
             const now = new Date();
 
@@ -105,7 +112,11 @@
             // Update message
             const currentTime = `${hours}:${minutes}`;
             const currentMessage = messages.find(({ start, end }) => currentTime >= start && currentTime < end)?.text || "";
-            document.getElementById("message").textContent = currentMessage;
+            if (currentMessage !== lastMessage) {
+                lastMessage = currentMessage;
+                document.getElementById("message").textContent = currentMessage;
+                //if (currentMessage) bellSound.play();
+            }
         }
 
         updateClock();
