@@ -57,6 +57,7 @@
 </head>
 
 <body>
+    <p><button id="soundButton">Включить звук</button></p>
     <div id="time">--:--</div>
     <div id="date">--, --.--.----</div>
     <div class="message">Сейчас:<br>
@@ -107,9 +108,20 @@
             "Суббота",
         ];
 
+        let isSoundOn = false;
+        const soundButton = document.getElementById("soundButton");
+        soundButton.addEventListener("click", () => {
+            isSoundOn = !isSoundOn;
+            const buttonText = isSoundOn ? "Выключить звук" : "Включить звук";
+            soundButton.innerHTML = buttonText;
+            console.log(soundButton);
+            console.log(buttonText);
+        })
+
         let defaultMessage = "уроков нет";
-        let lastMessage = "";
         const bellSound = new Audio("bellSound.mp3");
+        let lastBellTime = "";
+        let ringBell = false;
 
         function updateClock() {
             const now = new Date();
@@ -136,14 +148,24 @@
                 ({ start, end }) => currentTime >= start && currentTime < end
             );
 
-            let currentPeriodText = "";
+            let currentPeriodText = defaultMessage;
             let currentPeriodTime = "";
-            let nextPeriodText = "";
+            let nextPeriodText = defaultMessage;
             let nextPeriodTime = "";
 
             if (currPeriodIdx > -1) {
                 currentPeriodText = messages[currPeriodIdx].text;
                 currentPeriodTime = `${messages[currPeriodIdx].start} — ${messages[currPeriodIdx].end}`;
+                if (currentTime === messages[currPeriodIdx].start) {
+                    if (lastBellTime != currentTime) {
+                        lastBellTime = currentTime;
+                        ringBell = true;
+                    } else {
+                        ringBell = false;
+                    }
+                } else {
+                    ringBell = false;
+                }
             }
 
             if (currPeriodIdx > -1 && currPeriodIdx + 1 < messages.length) {
@@ -156,11 +178,14 @@
             document.getElementById("currentPeriodTime").innerHTML = currentPeriodTime;
             document.getElementById("nextPeriodText").innerHTML = nextPeriodText;
             document.getElementById("nextPeriodTime").innerHTML = nextPeriodTime;
+
+            if (isSoundOn && ringBell) {
+                bellSound.play();
+            }
         }
 
         updateClock();
         setInterval(updateClock, 1000);
-
     </script>
 </body>
 
