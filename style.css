@@ -13,32 +13,35 @@ body {
 }
 
 #time {
-    font-size: 10vw;
+    font-size: 8vw;
     font-weight: bold;
-    margin: 0;
+    margin: 1vw;
 }
 
 #date {
-    font-size: 4vw;
-    padding-top: 4vw;
+    font-size: 3vw;
+    margin: 1vw;
 }
 
-#message {
-    font-size: 6vw;
-    padding-top: 4vw;
+.message {
+    font-size: 4vw;
     font-weight: bold;
+    margin: 1vw;
 }
 
 @media (max-width: 768px) {
     #time {
-        font-size: 20vw;
+        font-size: 18vw;
+        margin: 3vw;
     }
 
     #date {
         font-size: 6vw;
+        margin: 3vw;
     }
 
-    #message {
-        font-size: 10vw;
+    .message {
+        font-size: 8vw;
+        margin: 3vw;
     }
 }
